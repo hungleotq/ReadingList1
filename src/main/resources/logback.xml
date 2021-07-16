@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%d{HH:mm:ss.SSS} [%thread] %-5level [%logger{36}] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="root" level="INFO"/>
+	
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+	
+	<property scope="context" name="ReadingListController_LOG" value="src/main/resources/logs"/>
+	
+	<appender name="ReadingList" class="ch.qos.logback.core.rolling.RollingFileAppender">
+               <file>${ReadingListController_LOG}/debug.log</file>
+               <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                       <Pattern>
+                               %d{yyyy-MM-dd HH:mm:ss} - %msg%n
+                       </Pattern>
+               </encoder>
+               <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                       <!-- rollover daily -->
+                       <fileNamePattern>${ReadingListController_LOG}/archived/debug.%d{yyyy-MM-dd}.%i.zip
+                       </fileNamePattern>
+                       <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                               <maxFileSize>250MB</maxFileSize>
+                       </timeBasedFileNamingAndTriggeringPolicy>
+               </rollingPolicy>
+       </appender>
+       	<logger name="readinglist.controller.ReadingListController" level="debug">
+             <appender-ref ref="ReadingList"/>
+        </logger>
+</configuration>

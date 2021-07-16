@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Reading List</title>
+<link rel="stylesheet" th:href="@{/style.css}"></link>
+</head>
+<body>
+	<h2>Reading List</h2>
+	<div th:if="${not #lists.isEmpty(books)}">
+		<dl th:each="book : ${books}">
+			 <dt class="bookHeadline">
+			 		<span th:text="${book.title}">Title</span> by
+			 		<span th:text="${book.author}">Author</</span> 
+			 </dt>
+		</dl>
+	</div>
+	<div th:if="${#lists.isEmpty(books)}">
+		<p>You have no books in list </p> 
+	</div>
+	
+	<h2>Add new Book</h2>
+	<div>
+		<form method="POST" th:object="${book}">
+			<input name="title">
+			<input name="author">
+			<br/>
+			<input type="submit"></input>
+		</form>
+	</div>
+</body>
+</html>
